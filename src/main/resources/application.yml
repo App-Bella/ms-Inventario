@@ -1,19 +1,35 @@
+server:
+  port: 8084
+
 spring:
   application:
     name: ms-inventario
+
   datasource:
-    url: "jdbc:h2:mem:inventario;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    url: jdbc:mysql://localhost:3306/pontebella_inventario?useSSL=false&serverTimezone=America/Bogota&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
     open-in-view: false
+
+  jackson:
+    date-format: yyyy-MM-dd'T'HH:mm:ss
+    time-zone: America/Bogota
+
   rabbitmq:
     listener:
       simple:
         auto-startup: false
 
-server:
-  port: 8081
+logging:
+  level:
+    com.pontebella.ms_inventario: DEBUG
